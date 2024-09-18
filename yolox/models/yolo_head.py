@@ -242,8 +242,8 @@ class YOLOXHead(nn.Module):
             shape = grid.shape[:2]
             strides.append(torch.full((*shape, 1), stride))
 
-        grids = torch.cat(grids, dim=1).type(dtype)
-        strides = torch.cat(strides, dim=1).type(dtype)
+        grids = torch.cat(grids, dim=1).type(dtype).to(outputs.device)
+        strides = torch.cat(strides, dim=1).type(dtype).to(outputs.device)
 
         outputs = torch.cat([
             (outputs[..., 0:2] + grids) * strides,
